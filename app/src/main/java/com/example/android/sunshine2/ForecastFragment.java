@@ -111,8 +111,6 @@ public class ForecastFragment extends Fragment {
                 Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
                 detailIntent.putExtra(Intent.EXTRA_TEXT, data);
                 startActivity(detailIntent);
-
-                Toast.makeText(getActivity(), data, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -138,6 +136,14 @@ public class ForecastFragment extends Fragment {
          * Prepare the weather high/lows for presentation.
          */
         private String formatHighLows(double high, double low) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String preferredUnits = prefs.getString(getString(R.string.pref_units_key),
+                    getString(R.string.pref_units_metric));
+
+            if (preferredUnits == getString(R.string.pref_units_imperial)) {
+                high = convertToImperial(high);
+                low = convertToImperial(low);
+            }
             // For presentation, assume the user doesn't care about tenths of a degree.
             long roundedHigh = Math.round(high);
             long roundedLow = Math.round(low);
@@ -218,6 +224,10 @@ public class ForecastFragment extends Fragment {
 
             return resultStrs;
 
+        }
+
+        public double convertToImperial(double metricVal) {
+            return metricVal * 1.8 + 32;
         }
 
 

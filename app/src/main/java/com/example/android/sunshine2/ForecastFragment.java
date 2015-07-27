@@ -139,8 +139,7 @@ public class ForecastFragment extends Fragment {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
             String preferredUnits = prefs.getString(getString(R.string.pref_units_key),
                     getString(R.string.pref_units_metric));
-
-            if (preferredUnits == getString(R.string.pref_units_imperial)) {
+            if (preferredUnits.equals(getString(R.string.pref_units_imperial))) {
                 high = convertToImperial(high);
                 low = convertToImperial(low);
             }

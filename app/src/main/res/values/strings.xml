@@ -3,6 +3,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
+    <string name="action_location">Show location</string>
+    <string name="action_share">Share</string>
 
     <string name="title_activity_detail">Details</string>
     <string name="title_activity_settings">Settings</string>
@@ -16,7 +18,7 @@
     <string name="pref_units_key" translatable="false">units</string>
 
     <string name="pref_units_label_metric" translatable="false">Metric</string>
-    <string name="pref_units_lable_imperial" translatable="false">Imperial</string>
+    <string name="pref_units_label_imperial" translatable="false">Imperial</string>
 
     <string name="pref_units_metric" translatable="false">metric</string>
     <string name="pref_units_imperial" translatable="false">imperial</string>

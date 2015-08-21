@@ -75,7 +75,7 @@ public class ForecastFragment extends Fragment {
                 // current context
                 getActivity(),
                 // id of list item layout
-                R.layout.list_item_view,
+                R.layout.list_item_forecast,
                 // id of textview to populate
                 R.id.list_item_forecast_textview,
                 // data

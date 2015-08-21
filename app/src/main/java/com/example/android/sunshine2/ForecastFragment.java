@@ -1,7 +1,8 @@
 package com.example.android.sunshine2;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,10 +12,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import java.util.ArrayList;
+
+import com.example.android.sunshine2.data.WeatherContract;
+
 
 
 /**
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  */
 public class ForecastFragment extends Fragment {
 
-    private ArrayAdapter<String> mForecastAdapter;
+    private ForecastAdapter mForecastAdapter;
 
     public ForecastFragment() {
     }
@@ -51,12 +52,10 @@ public class ForecastFragment extends Fragment {
     }
 
     public void updateWeather() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String location = prefs.getString(
-                getString(R.string.pref_location_key),
-                getString(R.string.pref_location_default));
+        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
 
-        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity(), mForecastAdapter);
+        String location = Utility.getPreferredLocation(getActivity());
+
         weatherTask.execute(location);
     }
 
@@ -69,31 +68,34 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mForecastAdapter = new ArrayAdapter<String>(
-                // current context
-                getActivity(),
-                // id of list item layout
-                R.layout.list_item_forecast,
-                // id of textview to populate
-                R.id.list_item_forecast_textview,
-                // data
-                new ArrayList<String>());
+        String locationSetting = Utility.getPreferredLocation(getActivity());
+
+        // Sort order:  Ascending, by date.
+        String sortOrder = WeatherContract.WeatherEntry.COLUMN_DATE + " ASC";
+        Uri weatherForLocationUri = WeatherContract.WeatherEntry.buildWeatherLocationWithStartDate(
+                locationSetting, System.currentTimeMillis());
+
+        Cursor cur = getActivity().getContentResolver().query(weatherForLocationUri,
+                null, null, null, sortOrder);
+
+        mForecastAdapter = new ForecastAdapter(getActivity(), cur, 0);
+
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(mForecastAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String data = mForecastAdapter.getItem(position);
-
-                Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
-                detailIntent.putExtra(Intent.EXTRA_TEXT, data);
-                startActivity(detailIntent);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                String data = mForecastAdapter.getItem(position);
+//
+//                Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
+//                detailIntent.putExtra(Intent.EXTRA_TEXT, data);
+//                startActivity(detailIntent);
+//            }
+//        });
 
         return rootView;
     }

@@ -236,10 +236,11 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
             if ( cVVector.size() > 0 ) {
                 // Student: call bulkInsert to add the weatherEntries to the database here
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
+                cVVector.toArray(cvArray);
                 inserted = mContext.getContentResolver().bulkInsert(WeatherEntry.CONTENT_URI, cvArray);
             }
 
-            Log.d(LOG_TAG, "FetchWeatherTask Complete. " + cVVector.size() + " Inserted");
+            Log.d(LOG_TAG, "FetchWeatherTask Complete. " + inserted + " inserted.");
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);

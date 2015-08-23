@@ -55,11 +55,11 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
 //    // Not discussed in solution video, it appears to be how cursors get re-used.
-//    @Override
-//    public void onActivityCreated(Bundle savedInstanceState) {
-//        getLoaderManager().initLoader(FORECAST_LOADER, null, this);
-//        super.onActivityCreated(savedInstanceState);
-//    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        getLoaderManager().initLoader(FORECAST_LOADER, null, this);
+        super.onActivityCreated(savedInstanceState);
+    }
 
     public void updateWeather() {
         FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());

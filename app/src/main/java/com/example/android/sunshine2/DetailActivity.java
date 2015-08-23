@@ -72,7 +72,7 @@ public class DetailActivity extends ActionBarActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-        private String mForecast;
+        private String mForecastStr;
 
         public PlaceholderFragment() {
             setHasOptionsMenu(true);
@@ -82,11 +82,13 @@ public class DetailActivity extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             Intent intent = getActivity().getIntent();
-            mForecast = intent.getStringExtra(Intent.EXTRA_TEXT);
+            if (intent != null) {
+                mForecastStr = intent.getDataString();
+            }
             View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
             TextView textView = (TextView) rootView.findViewById(R.id.detail_textview);
-            textView.setText(mForecast);
+            textView.setText(mForecastStr);
 
             return rootView;
         }
@@ -110,7 +112,7 @@ public class DetailActivity extends ActionBarActivity {
             Intent intent = new Intent(Intent.ACTION_SEND)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
                     .setType("text/plain")
-                    .putExtra(Intent.EXTRA_TEXT, mForecast + HASHTAG);
+                    .putExtra(Intent.EXTRA_TEXT, mForecastStr + HASHTAG);
             return intent;
         }
     }

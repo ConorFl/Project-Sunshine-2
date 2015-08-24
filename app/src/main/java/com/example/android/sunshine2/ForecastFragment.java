@@ -21,9 +21,6 @@ import com.example.android.sunshine2.data.WeatherContract;
 
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int FORECAST_LOADER = 0;
@@ -93,6 +90,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     public void updateWeather() {
+        // todo can this be removed? check github.
         FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
 
         String location = Utility.getPreferredLocation(getActivity());
@@ -100,10 +98,9 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         weatherTask.execute(location);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    void onLocationChanged() {
         updateWeather();
+        getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
     }
 
     @Override

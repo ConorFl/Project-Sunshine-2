@@ -33,6 +33,25 @@ public class ForecastAdapter extends CursorAdapter {
         return 2;
     }
 
+    /**
+     * Cache of the children views for a forecast list item.
+     */
+    public static class ViewHolder {
+        public final ImageView iconView;
+        public final TextView dateView;
+        public final TextView descriptionView;
+        public final TextView highTempView;
+        public final TextView lowTempView;
+
+        public ViewHolder(View view) {
+            iconView = (ImageView) view.findViewById(R.id.list_item_icon);
+            dateView = (TextView) view.findViewById(R.id.list_item_date_textview);
+            descriptionView = (TextView) view.findViewById(R.id.list_item_forecast_textview);
+            highTempView = (TextView) view.findViewById(R.id.list_item_high_textview);
+            lowTempView = (TextView) view.findViewById(R.id.list_item_low_textview);
+        }
+    }
+
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         int viewType = getItemViewType(cursor.getPosition());
@@ -43,7 +62,9 @@ public class ForecastAdapter extends CursorAdapter {
             layoutId = R.layout.list_item_forecast;
         }
         View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
-
+        // Store references to Views (TextView, ImageView, ...) to be used when Views are recycled.
+        ViewHolder viewHolder = new ViewHolder(view);
+        view.setTag(viewHolder);
         return view;
     }
 
@@ -52,31 +73,28 @@ public class ForecastAdapter extends CursorAdapter {
      */
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        // Set icon as default for nwo
-        ImageView iconView = (ImageView) view.findViewById(R.id.list_item_icon);
-        iconView.setImageResource(R.mipmap.ic_launcher);
+        // Set icon as default for now
+        // Get ViewHolder created in newView and use references from that.
+        ViewHolder viewHolder = (ViewHolder) view.getTag();
+        viewHolder.iconView.setImageResource(R.mipmap.ic_launcher);
 
         // Set date
         String dateStr = cursor.getString(ForecastFragment.COL_WEATHER_DATE);
-        TextView dateTextView = (TextView) view.findViewById(R.id.list_item_date_textview);
-        dateTextView.setText(Utility.getFriendlyDayString(context, Long.parseLong(dateStr)));
+        viewHolder.dateView.setText(Utility.getFriendlyDayString(context, Long.parseLong(dateStr)));
 
         // Set forecast
         String forecastStr = cursor.getString(ForecastFragment.COL_WEATHER_DESC);
-        TextView forecastTextView = (TextView) view.findViewById(R.id.list_item_forecast_textview);
-        forecastTextView.setText(forecastStr);
+        viewHolder.descriptionView.setText(forecastStr);
 
         // Read user preference for metric or imperial temperature units
         boolean isMetric = Utility.isMetric(context);
 
         // Set high temp
         Double highTemp = cursor.getDouble(ForecastFragment.COL_WEATHER_MAX_TEMP);
-        TextView highTempTextView = (TextView) view.findViewById(R.id.list_item_high_textview);
-        highTempTextView.setText(Utility.formatTemperature(highTemp, isMetric));
+        viewHolder.highTempView.setText(Utility.formatTemperature(context, highTemp, isMetric));
 
         // Set low temp
         Double lowTemp = cursor.getDouble(ForecastFragment.COL_WEATHER_MIN_TEMP);
-        TextView lowTempTextView = (TextView) view.findViewById(R.id.list_item_low_textview);
-        lowTempTextView.setText(Utility.formatTemperature(lowTemp, isMetric));
+        viewHolder.lowTempView.setText(Utility.formatTemperature(context, lowTemp, isMetric));
     }
 }

@@ -24,14 +24,16 @@
             android:layout_height="wrap_content"
             android:text="Jan 1"/>
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
                 <TextView
                     android:id="@+id/temp_high"
                     android:layout_width="wrap_content"
@@ -53,7 +55,6 @@
                     android:id="@+id/weather_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:src="@mipmap/ic_launcher" />
                 <TextView
                     android:id="@+id/description"
@@ -64,18 +65,18 @@
         </LinearLayout>
         <TextView
             android:id="@+id/humidity"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="data 1" />
         <TextView
             android:id="@+id/wind"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="data 2" />
         <TextView
             android:id="@+id/pressure"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="data 3" />
     </LinearLayout>
 

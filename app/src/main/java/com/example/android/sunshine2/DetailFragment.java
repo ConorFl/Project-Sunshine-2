@@ -95,9 +95,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         if(cursor.moveToFirst()) {
-            detailsStr = convertCursorRowToUXFormat(cursor);
-            TextView textView = (TextView) getView().findViewById(R.id.detail_textview);
-            textView.setText(detailsStr);
+
+//            detailsStr = convertCursorRowToUXFormat(cursor);
+//            TextView textView = (TextView) getView().findViewById(R.id.detail_textview);
+//            textView.setText(detailsStr);
         }
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(createShareIntent());

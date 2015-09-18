@@ -29,6 +29,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     private ForecastAdapter mForecastAdapter;
     private int mPosition;
     private ListView mListView;
+    private boolean mUseTodayLayout;
 
     private static final String[] FORECAST_COLUMNS = {
             // In this case the id needs to be fully qualified with a table name, since
@@ -120,6 +121,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
         // The cursor adapter will query the data then swap the cursor on load finish (see below)
         mForecastAdapter = new ForecastAdapter(getActivity(), null, 0);
+        mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -157,6 +159,13 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             bundle.putInt(SELECTED_KEY, mPosition);
         }
         super.onSaveInstanceState(bundle);
+    }
+
+    public void setUseTodayLayout(boolean useTodayLayout) {
+        mUseTodayLayout = useTodayLayout;
+        if (mForecastAdapter != null) {
+            mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
+        }
     }
 
     @Override

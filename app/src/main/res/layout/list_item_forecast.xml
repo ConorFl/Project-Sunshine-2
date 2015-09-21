@@ -14,7 +14,8 @@
             android:id="@+id/list_item_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_horizontal" />
     </FrameLayout>
 
     <LinearLayout
@@ -42,7 +43,8 @@
         android:layout_width="0dp"
         android:layout_weight="5"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
         <TextView
             android:text="92"
             android:id="@+id/list_item_high_textview"

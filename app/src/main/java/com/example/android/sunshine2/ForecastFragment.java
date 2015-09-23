@@ -1,6 +1,5 @@
 package com.example.android.sunshine2;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.app.Fragment;

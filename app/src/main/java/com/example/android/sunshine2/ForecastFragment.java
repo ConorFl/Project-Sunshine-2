@@ -20,9 +20,6 @@ import android.support.v4.content.CursorLoader;
 import com.example.android.sunshine2.data.WeatherContract;
 import com.example.android.sunshine2.service.SunshineService;
 
-import java.util.List;
-
-
 public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int FORECAST_LOADER = 0;

@@ -1,5 +1,6 @@
 package com.example.android.sunshine2;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.content.CursorLoader;
 
 import com.example.android.sunshine2.data.WeatherContract;
+import com.example.android.sunshine2.service.SunshineService;
 
 import java.util.List;
 
@@ -101,12 +103,10 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     public void updateWeather() {
-        // todo can this be removed? check github.
-        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
-
+        Intent intent = new Intent(getActivity(), SunshineService.class);
         String location = Utility.getPreferredLocation(getActivity());
-
-        weatherTask.execute(location);
+        intent.putExtra(SunshineService.LOCATION_QUERY_EXTRA, location);
+        getActivity().startService(intent);
     }
 
     void onLocationChanged() {

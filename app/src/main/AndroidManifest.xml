@@ -41,6 +41,7 @@
             android:name=".data.WeatherProvider">
         </provider>
         <service android:name=".service.SunshineService"></service>
+        <receiver android:name=".service.SunshineService$AlarmReceiver"></receiver>
     </application>
 
 </manifest>

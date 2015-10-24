@@ -1,4 +1,4 @@
-package com.example.android.sunshine.app.sync;
+package com.example.android.sunshine2.sync;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -10,7 +10,7 @@ import android.content.SyncResult;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.android.sunshine.app.R;
+import com.example.android.sunshine2.R;
 
 public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     public final String LOG_TAG = SunshineSyncAdapter.class.getSimpleName();

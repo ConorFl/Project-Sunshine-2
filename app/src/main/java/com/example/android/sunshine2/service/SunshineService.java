@@ -12,6 +12,7 @@ import android.text.format.Time;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.example.android.sunshine2.R;
 import com.example.android.sunshine2.Utility;
 import com.example.android.sunshine2.data.WeatherContract;
 
@@ -65,12 +66,14 @@ public class SunshineService extends IntentService {
             final String FORMAT_PARAM = "mode";
             final String UNITS_PARAM = "units";
             final String DAYS_PARAM = "cnt";
+            final String API_KEY_PARAM = "APPID";
 
             Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                     .appendQueryParameter(QUERY_PARAM, locationQuery)
                     .appendQueryParameter(FORMAT_PARAM, format)
                     .appendQueryParameter(UNITS_PARAM, units)
                     .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+                    .appendQueryParameter(API_KEY_PARAM, getString(R.string.open_weather_api_key))
                     .build();
 
             URL url = new URL(builtUri.toString());

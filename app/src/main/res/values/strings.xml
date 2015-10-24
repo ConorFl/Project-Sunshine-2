@@ -56,6 +56,6 @@
 		<!-- Account type (for sync-adapter authenticator) -->
     <!-- SyncAdapter related -->
     <string name="sync_account_type">sunshine2.example.com</string>
-    <string name="content_authority">com.example.android.sunshine2.app</string>
+    <string name="content_authority">com.example.android.sunshine2</string>
 
 </resources>

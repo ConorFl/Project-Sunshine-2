@@ -48,9 +48,7 @@
             android:name=".data.WeatherProvider"
             android:exported="false"
             android:syncable="true" />
-        <service android:name=".service.SunshineService"></service>
-        <receiver android:name=".service.SunshineService$AlarmReceiver"></receiver>
-    		
+
         <!-- SyncAdapter's dummy authentication service -->
         <service
             android:name=".sync.SunshineAuthenticatorService"

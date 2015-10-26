@@ -84,10 +84,10 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     public boolean onOptionsItemSelected(MenuItem item) {
 //        Handle button clicks here
         int id = item.getItemId();
-        if (id == R.id.action_refresh) {
-            updateWeather();
-            return true;
-        }
+//        if (id == R.id.action_refresh) {
+//            updateWeather();
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -119,6 +119,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
         mListView = (ListView) rootView.findViewById(R.id.listview_forecast);
         mListView.setAdapter(mForecastAdapter);
+        mListView.setEmptyView(rootView.findViewById(R.id.empty_weather));
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

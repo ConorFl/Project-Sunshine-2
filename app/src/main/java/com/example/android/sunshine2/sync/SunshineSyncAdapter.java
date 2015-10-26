@@ -296,9 +296,16 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 // Student: call bulkInsert to add the weatherEntries to the database here
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
                 cVVector.toArray(cvArray);
-                inserted = getContext().getContentResolver().bulkInsert(WeatherContract.WeatherEntry.CONTENT_URI, cvArray);
+                inserted = getContext().getContentResolver()
+                        .bulkInsert(WeatherContract.WeatherEntry.CONTENT_URI, cvArray);
+
+                // delete old data
+                getContext().getContentResolver().delete(WeatherContract.WeatherEntry.CONTENT_URI,
+                        WeatherContract.WeatherEntry.COLUMN_DATE + "<= ?",
+                        new String[] {Long.toString(dayTime.setJulianDay(julianStartDay-1))});
                 notifyWeather();
             }
+
 
             Log.d(LOG_TAG, "FetchWeatherTask Complete. " + inserted + " inserted.");
 
@@ -441,7 +448,6 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         getSyncAccount(context);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void notifyWeather() {
         Context context = getContext();
         //checking the last update and notify if it' the first of the day
